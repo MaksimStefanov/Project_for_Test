@@ -9,15 +9,15 @@ public class FirstTest {
 
 
     @Test
-    public void navigate(){
+    public void navigate() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver","src/test/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
-        driver.get("https://ithillel.ua/");
-        driver.findElement(By.xpath("//button[@id='btn-consultation-hero']")).click();
+        driver.get(Constants.MAIN_PAGE);
+        driver.findElement(By.xpath(Constants.PATH_TO_CONSULTATION)).click();
         WebElement temp = driver.findElement(By.xpath(Constants.PATH_TO_NAME));
-                temp.sendKeys("Максим");
-
+        temp.sendKeys("Максим");
+        Thread.sleep(2000);
 //        Assert.assertEquals(temp.getText(),"Максим");
 
         driver.quit();
