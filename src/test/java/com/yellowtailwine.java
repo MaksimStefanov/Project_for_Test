@@ -2,6 +2,7 @@ package com;
 
 import org.openqa.selenium.By;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,17 +13,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class yellowtailwine {
     WebDriver driver;
     WebDriverWait wait;
-
-//    @BeforeClass
-//    public void raiseBrowser() {
-//        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-//        driver = new ChromeDriver();
-//    }
 
     @BeforeMethod
     public void openBrowser() {
@@ -115,13 +111,24 @@ public class yellowtailwine {
     }
 
     @Test(description = "Case 4: Main page: Menu button logic (open header)")
-    public void menuButtonLogic() throws InterruptedException {
+    public void menuButtonLogicOpen() throws InterruptedException {
         driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
         Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
         dropDown.selectByVisibleText("Europe");
         driver.findElement(By.xpath("//input[@type='submit']")).click();
         Thread.sleep(2000);
-//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Menu')]")));
+        driver.findElement(By.xpath("//span[contains(text(),'Menu')]")).click();
+        Thread.sleep(2000);
+        Assert.assertTrue(driver.findElement(By.xpath("//div[@class='top-nav -active']/descendant::img[@alt='Yellow tail logo']")).isDisplayed());
+
+    }
+    @Test(description = "Case 5:  Main page: Menu button logic (close header)")
+    public void menuButtonLogicClose() throws InterruptedException {
+        driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
+        Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
+        dropDown.selectByVisibleText("Europe");
+        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        Thread.sleep(2000);
         driver.findElement(By.xpath("//span[contains(text(),'Menu')]")).click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("//div[@class='top-nav -active']/descendant::img[@alt='Yellow tail logo']")).click();
@@ -142,6 +149,73 @@ public class yellowtailwine {
         driver.findElement(By.xpath("//button[@class='search-submit']")).click();
         Thread.sleep(2000);
         Assert.assertTrue(driver.findElement(By.xpath("//*[contains(text(),'Stockists in your area')]")).isDisplayed());
+    }
+
+    @Test(description = "Case 10: Cocktails: Navigate to Cocktail recipe page")
+    public void verifyNavigateToCocktailRecipePage() throws InterruptedException {
+        driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
+        Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
+        dropDown.selectByVisibleText("Europe");
+        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
+        Thread.sleep(2000);
+        WebElement element = driver.findElement(By.xpath("//img[@alt='Raspberry Rose']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        driver.findElement(By.xpath("//img[@alt='Raspberry Rose']/parent::a/descendant::div[contains(text(),'Full recipe')]")).click();
+        Thread.sleep(2000);
+        Assert.assertTrue(driver.findElement(By.xpath("//div[@class='ingredients']")).isDisplayed());
+    }
+    ////////////////////////////////////////////////////// Дальше пока не готово =) /////////////////////////////////////////////////////////////////
+    @Test(description = "Case 7: Main page: Global Nav logic") // не проходит
+    public void verifyGlobalNavLogic() throws InterruptedException {
+        driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
+        Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
+        dropDown.selectByVisibleText("Europe");
+        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[contains(text(),'Menu')]"));
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//li[@id='country-select']/a"));
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[@data-key='CN']"));
+        Thread.sleep(2000);
+
+        /**
+         Тест будет падать так как на сайте баг*/
+        //       Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(),'Menu')]")).isDisplayed());
+    }
+
+    @Test(description = "Case 9: Cocktails: Select one wine") // не проходит
+    public void verifyWinesDisplayed() throws InterruptedException {
+        driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
+        Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
+        dropDown.selectByVisibleText("Europe");
+        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[@class='selected']"));
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[@data-value='red']"));
+        //List<WebElement> recipes = driver.findElements(By.xpath("//*[contains(text(),'Full recipe')][@class='button recipe-button']"));
+    }
+
+
+    @Test(description = "Case 11: Cocktails: Select several wines") // не проходит
+    public void verifySelectSeveralWines() throws InterruptedException {
+        driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
+        Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
+        dropDown.selectByVisibleText("Europe");
+        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[@class='selected']"));
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[@data-value='red']"));
+        driver.findElement(By.xpath("//a[@data-value='bubbles']"));
+        //List<WebElement> recipes = driver.findElements(By.xpath("//*[contains(text(),'Full recipe')][@class='button recipe-button']"));
     }
 
     @AfterMethod
