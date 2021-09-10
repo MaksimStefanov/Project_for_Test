@@ -166,27 +166,31 @@ public class yellowtailwine {
         Thread.sleep(2000);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='ingredients']")).isDisplayed());
     }
-    ////////////////////////////////////////////////////// Дальше пока не готово =) /////////////////////////////////////////////////////////////////
-    @Test(description = "Case 7: Main page: Global Nav logic") // не проходит
+
+    @Test(description = "Case 6: Main page: Global Nav logic") // не проходит
     public void verifyGlobalNavLogic() throws InterruptedException {
         driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
         Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
         dropDown.selectByVisibleText("Europe");
         driver.findElement(By.xpath("//input[@type='submit']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//span[contains(text(),'Menu')]"));
+        driver.findElement(By.xpath("//span[contains(text(),'Menu')]")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//li[@id='country-select']/a"));
+        driver.findElement(By.xpath("//li[@id='country-select']/a")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@data-key='CN']"));
+        driver.findElement(By.xpath("//a[@data-key='CN']")).click();
         Thread.sleep(2000);
+        Assert.assertEquals(driver.getCurrentUrl(),"https://www.yellowtailwine.cn/");
 
         /**
-         Тест будет падать так как на сайте баг*/
-        //       Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(),'Menu')]")).isDisplayed());
+         Case 7: Main page: Global Nav logic (CHINA - separate site is open)
+         Тест будет падать так как на сайте баг
+
+         */
+
     }
 
-    @Test(description = "Case 9: Cocktails: Select one wine") // не проходит
+    @Test(description = "Case 9: Cocktails: Select one wine")
     public void verifyWinesDisplayed() throws InterruptedException {
         driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
         Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
@@ -195,14 +199,16 @@ public class yellowtailwine {
         Thread.sleep(2000);
         driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@class='selected']"));
+        driver.findElement(By.xpath("//a[@class='selected']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@data-value='red']"));
-        //List<WebElement> recipes = driver.findElements(By.xpath("//*[contains(text(),'Full recipe')][@class='button recipe-button']"));
-    }
+        driver.findElement(By.xpath("//a[@data-value='red']")).click();
+        Thread.sleep(2000);
+
+        List<WebElement> recipes = driver.findElements(By.xpath("//div[@data-types='red']/descendant::div[contains(text(),'Full recipe')]"));
+        Assert.assertEquals(recipes.size(),9);    }
 
 
-    @Test(description = "Case 11: Cocktails: Select several wines") // не проходит
+    @Test(description = "Case 11: Cocktails: Select several wines")
     public void verifySelectSeveralWines() throws InterruptedException {
         driver.findElement(By.xpath("//*[@class='confirmation-checkbox']/child::label")).click();
         Select dropDown = new Select(driver.findElement(By.id("agegate-selector-options")));
@@ -211,11 +217,15 @@ public class yellowtailwine {
         Thread.sleep(2000);
         driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@class='selected']"));
+        driver.findElement(By.xpath("//a[@class='selected']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@data-value='red']"));
-        driver.findElement(By.xpath("//a[@data-value='bubbles']"));
-        //List<WebElement> recipes = driver.findElements(By.xpath("//*[contains(text(),'Full recipe')][@class='button recipe-button']"));
+        driver.findElement(By.xpath("//a[@data-value='red']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[@data-value='bubbles']")).click();
+        Thread.sleep(2000);
+
+        List<WebElement> recipes = driver.findElements(By.xpath("//div[@data-types='red' or @data-types='bubbles']/descendant::div[contains(text(),'Full recipe')]"));
+        Assert.assertEquals(recipes.size(),20);
     }
 
     @AfterMethod
