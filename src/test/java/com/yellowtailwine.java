@@ -204,7 +204,7 @@ public class yellowtailwine {
         driver.findElement(By.xpath("//a[@data-value='red']")).click();
         Thread.sleep(2000);
 
-        List<WebElement> recipes = driver.findElements(By.xpath("//div[@data-types='red']/descendant::div[contains(text(),'Full recipe')]"));
+        List<WebElement> recipes = driver.findElements(By.xpath("//div[@class='tile recipe-tile']"));
         Assert.assertEquals(recipes.size(),9);    }
 
 
@@ -224,7 +224,7 @@ public class yellowtailwine {
         driver.findElement(By.xpath("//a[@data-value='bubbles']")).click();
         Thread.sleep(2000);
 
-        List<WebElement> recipes = driver.findElements(By.xpath("//div[@data-types='red' or @data-types='bubbles']/descendant::div[contains(text(),'Full recipe')]"));
+        List<WebElement> recipes = driver.findElements(By.xpath("//div[@class='tile recipe-tile']"));
         Assert.assertEquals(recipes.size(),20);
     }
 
