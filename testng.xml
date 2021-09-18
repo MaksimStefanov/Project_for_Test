@@ -3,7 +3,7 @@
 <suite name="TestSuite" thread-count="1" parallel="false" >
     <test name="Test" parallel="false" verbose="2">
         <classes>
-                <class name="com.yellowtailwine"></class>
+                <class name="com.YellowTailTest"></class>
         </classes>
     </test>
 </suite>
