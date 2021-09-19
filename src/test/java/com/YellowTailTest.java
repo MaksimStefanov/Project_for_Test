@@ -12,17 +12,19 @@ import static com.Constants.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import sun.awt.windows.ThemeReader;
 
 import java.util.List;
 
 public class YellowTailTest {
     WebDriver driver;
-    WebDriverWait wait;
+
 
     @BeforeMethod
     public void properties() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         driver = new ChromeDriver();
+
     }
 
     @AfterMethod
@@ -110,7 +112,7 @@ public class YellowTailTest {
 
     @Test(description = "Case 3: Main page: all required elements are displayed")
     public void verifyDisplayedItemsMainPageFindYourWine() {
-        WelcomePage welcomePage = new WelcomePage(driver);;
+        WelcomePage welcomePage = new WelcomePage(driver);
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
@@ -127,30 +129,33 @@ public class YellowTailTest {
     }
 
     @Test(description = "Case 4: Main page: Menu button logic (open header)")
-    public void menuButtonLogicOpen() {
+    public void menuButtonLogicOpen()   {
         WelcomePage welcomePage = new WelcomePage(driver);
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
+        mainPage.menuButtonWait();
         mainPage.menuButton().click();
+        mainPage.yellowTailLogoWait();
         Assert.assertTrue(mainPage.yellowTailLogo().isDisplayed());
 
     }
 
     @Test(description = "Case 5:  Main page: Menu button logic (close header)")
-    public void menuButtonLogicClose() {
+    public void menuButtonLogicClose()   {
         WelcomePage welcomePage = new WelcomePage(driver);
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
+        mainPage.menuButtonWait();
         mainPage.menuButton().click();
+        mainPage.yellowTailLogoWait();
         mainPage.yellowTailLogo().click();
+        mainPage.menuButtonWait();
         Assert.assertTrue(mainPage.menuButton().isDisplayed());
 
     }
 
     @Test(description = "Case 8: Where to buy: enter valid postal code")
-    public void whereToBuyPage() throws InterruptedException {
+    public void whereToBuyPage()  {
         WelcomePage welcomePage = new WelcomePage(driver);
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
@@ -162,12 +167,12 @@ public class YellowTailTest {
     }
 
     @Test(description = "Case 10: Cocktails: Navigate to Cocktail recipe page")
-    public void verifyNavigateToCocktailRecipePage() throws InterruptedException {
+    public void verifyNavigateToCocktailRecipePage() {
         WelcomePage welcomePage = new WelcomePage(driver);
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
-        driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
+        mainPage.clickCocktailsButton();
         WebElement element = driver.findElement(By.xpath("//img[@alt='Raspberry Rose']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         driver.findElement(By.xpath("//img[@alt='Raspberry Rose']/parent::a/descendant::div[contains(text(),'Full recipe')]")).click();
@@ -180,10 +185,12 @@ public class YellowTailTest {
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
-        driver.findElement(By.xpath("//span[contains(text(),'Menu')]")).click();
-        driver.findElement(By.xpath("//li[@id='country-select']/a")).click();
-        driver.findElement(By.xpath("//a[@data-key='CN']")).click();
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.yellowtailwine.cn/");
+        mainPage.menuButtonWait();
+        mainPage.menuButton().click();
+
+        mainPage.selectCountry().click();
+        mainPage.selectCountryFromDropDown(CHINA);
+        Assert.assertEquals(driver.getCurrentUrl(), EXPECTED_URL_CHINA);
 
         /**
          Case 7: Main page: Global Nav logic (CHINA - separate site is open)
@@ -199,9 +206,9 @@ public class YellowTailTest {
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
-        driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
-        driver.findElement(By.xpath("//a[@class='selected']")).click();
-        driver.findElement(By.xpath("//a[@data-value='red']")).click();
+        mainPage.clickCocktailsButton();
+        CocktailsPage cocktails = mainPage.clickCocktailsButton();
+        cocktails.selectCocktails(RED_WINE);
 
         List<WebElement> recipes = driver.findElements(By.xpath("//div[@class='tile recipe-tile']"));
         Assert.assertEquals(recipes.size(), 9);

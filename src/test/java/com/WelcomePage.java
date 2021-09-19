@@ -8,15 +8,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.Constants.*;
-import static com.Constants.LEGAL_AGE;
+import static com.Constants.LEGAL_AGE_X;
 
 public class WelcomePage {
     WebDriver driver;
-    WebDriverWait wait;
-
-    public WelcomePage(WebDriverWait wait) {
-        this.wait = wait;
-    }
 
     public WelcomePage(WebDriver driver) {
         this.driver = driver;
@@ -40,15 +35,15 @@ public class WelcomePage {
     }
 
     public void legalAgeWait() {
-        new WebDriverWait(driver, 2).until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(LEGAL_AGE)));
+        (new WebDriverWait(driver, 2)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(LEGAL_AGE_X)));
     }
 
     public WebElement legalAge() {
-        return driver.findElement(By.xpath(LEGAL_AGE));
+        return driver.findElement(By.xpath(LEGAL_AGE_X));
     }
 
     public WebElement checkBox() {
-        return driver.findElement(By.xpath("//*[@class='fa fa-bars']/span"));
+        return driver.findElement(By.xpath(CHECKBOX));
     }
 
     public WebElement dropDown() {
@@ -58,7 +53,6 @@ public class WelcomePage {
     public WebElement welcomeButton() {
         return driver.findElement(By.xpath("//input[@type='submit']"));
     }
-
 
     public void quit() {
         driver.quit();
