@@ -1,136 +1,120 @@
 package com;
 
-import org.openqa.selenium.By;
-
+import com.pages.CocktailsPage;
+import com.pages.WelcomePage;
+import com.pages.WhereToBuyPage;
+import io.qameta.allure.Description;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import static com.Constants.*;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import sun.awt.windows.ThemeReader;
 
 import java.util.List;
 
-public class YellowTailTest {
-    WebDriver driver;
+public class YellowTailTest extends TestNgRunner {
 
-
-    @BeforeMethod
-    public void properties() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
-        driver = new ChromeDriver();
-
-    }
-
-    @AfterMethod
-    public void closeDriver() {
-        WelcomePage welcomePage = new WelcomePage(driver);
-        welcomePage.quit();
-    }
-
-    @Test(description = "Case 1: Welcome page: all required elements are displayed")
+    @Description("Case 1: Welcome page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsWelcomePageLegalAge() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         welcomePage.legalAgeWait();
         Assert.assertTrue(welcomePage.legalAge().isDisplayed());
     }
-
-    @Test(description = "Case 1: Welcome page: all required elements are displayed")
+    @Description("Case 1: Welcome page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsWelcomePageCheckBoxBeforeLegalAge() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         welcomePage.legalAgeWait();
         Assert.assertTrue(welcomePage.checkBox().isDisplayed());
     }
-
-    @Test(description = "Case 1: Welcome page: all required elements are displayed")
+    @Description("Case 1: Welcome page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsWelcomePageSelectDropDown() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         welcomePage.legalAgeWait();
         Assert.assertTrue(welcomePage.dropDown().isDisplayed());
     }
-
-    @Test(description = "Case 1: Welcome page: all required elements are displayed")
+    @Description("Case 1: Welcome page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsWelcomePageWelcomeButton() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         welcomePage.legalAgeWait();
         Assert.assertTrue(welcomePage.welcomeButton().isDisplayed());
     }
-
-    @Test(description = "Case 1: Welcome page: all required elements are displayed")
+    @Description("Case 1: Welcome page: all required elements are displayed")
+    @Test
     public void verifyInactiveItemsWelcomePageWelcomeButton() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         welcomePage.legalAgeWait();
         Assert.assertFalse(welcomePage.welcomeButton().isEnabled());
     }
 
-
-    @Test(description = "Case 2: Welcome page: navigate to main page as European customer")
+    @Description("Case 2: Welcome page: navigate to main page as European customer")
+    @Test
     public void verifyNavigateToMainPage() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         Assert.assertTrue(mainPage.elementOnMainPage().isDisplayed());
     }
-
-    @Test(description = "Case 3: Main page: all required elements are displayed")
+    @Description("Case 3: Main page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsMainPageMenu() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         Assert.assertTrue(mainPage.menuButton().isDisplayed());
     }
-
-    @Test(description = "Case 3: Main page: all required elements are displayed")
+    @Description("Case 3: Main page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsMainPageWelcomeToWorld() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         Assert.assertTrue(mainPage.welcomeToTheWorld().isDisplayed());
     }
-
-    @Test(description = "Case 3: Main page: all required elements are displayed")
+    @Description("Case 3: Main page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsMainPageWeArePassionate() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         Assert.assertTrue(mainPage.weArePassionate().isDisplayed());
     }
-
-    @Test(description = "Case 3: Main page: all required elements are displayed")
+    @Description("Case 3: Main page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsMainPageFindYourWine() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         Assert.assertTrue(mainPage.findYourWine().isDisplayed());
     }
-
-    @Test(description = "Case 3: Main page: all required elements are displayed")
+    @Description("Case 3: Main page: all required elements are displayed")
+    @Test
     public void verifyDisplayedItemsMainPageFooter() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         Assert.assertTrue(mainPage.getFooter().isDisplayed());
     }
-
-    @Test(description = "Case 4: Main page: Menu button logic (open header)")
-    public void menuButtonLogicOpen()   {
-        WelcomePage welcomePage = new WelcomePage(driver);
+    @Description("Case 4: Main page: Menu button logic (open header)")
+    @Test
+    public void menuButtonLogicOpen() {
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.menuButtonWait();
@@ -139,10 +123,10 @@ public class YellowTailTest {
         Assert.assertTrue(mainPage.yellowTailLogo().isDisplayed());
 
     }
-
-    @Test(description = "Case 5:  Main page: Menu button logic (close header)")
-    public void menuButtonLogicClose()   {
-        WelcomePage welcomePage = new WelcomePage(driver);
+    @Description("Case 5:  Main page: Menu button logic (close header)")
+    @Test
+    public void menuButtonLogicClose() {
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.menuButtonWait();
@@ -153,44 +137,43 @@ public class YellowTailTest {
         Assert.assertTrue(mainPage.menuButton().isDisplayed());
 
     }
-
-    @Test(description = "Case 8: Where to buy: enter valid postal code")
-    public void whereToBuyPage()  {
-        WelcomePage welcomePage = new WelcomePage(driver);
+    @Description("Case 8: Where to buy: enter valid postal code")
+    @Test
+    public void whereToBuyPage() {
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
-        driver.findElement(By.xpath("//a[text()='Where to Buy']")).click();
-        driver.findElement(By.id("locationName")).sendKeys("Sydney");
-        driver.findElement(By.xpath("//button[@class='search-submit']")).click();
-        Assert.assertTrue(driver.findElement(By.xpath("//*[contains(text(),'Stockists in your area')]")).isDisplayed());
+        WhereToBuyPage whereToBuyPage = mainPage.clickWhereToBuy();
+        whereToBuyPage.findCountry(SYDNEY);
+        Assert.assertTrue(whereToBuyPage.stockists().isDisplayed());
     }
-
-    @Test(description = "Case 10: Cocktails: Navigate to Cocktail recipe page")
+    @Description("Case 10: Cocktails: Navigate to Cocktail recipe page")
+    @Test
     public void verifyNavigateToCocktailRecipePage() {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
-        mainPage.clickCocktailsButton();
-        WebElement element = driver.findElement(By.xpath("//img[@alt='Raspberry Rose']"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        driver.findElement(By.xpath("//img[@alt='Raspberry Rose']/parent::a/descendant::div[contains(text(),'Full recipe')]")).click();
-        Assert.assertTrue(driver.findElement(By.xpath("//div[@class='ingredients']")).isDisplayed());
+        CocktailsPage cocktails = mainPage.clickCocktailsButton();
+        WebElement element = cocktails.getRaspberry();
+        ((JavascriptExecutor) DriverProvider.INSTANCE.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+        cocktails.fullRecipes().click();
+        Assert.assertTrue(cocktails.ingridients().isDisplayed());
     }
-
-    @Test(description = "Case 6: Main page: Global Nav logic")
-    public void verifyGlobalNavLogic() throws InterruptedException {
-        WelcomePage welcomePage = new WelcomePage(driver);
+    @Description("Case 6: Main page: Global Nav logic")
+    @Test
+    public void verifyGlobalNavLogic() {
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         mainPage.menuButtonWait();
         mainPage.menuButton().click();
-
+        mainPage.yellowTailLogoWait();
         mainPage.selectCountry().click();
         mainPage.selectCountryFromDropDown(CHINA);
-        Assert.assertEquals(driver.getCurrentUrl(), EXPECTED_URL_CHINA);
+        Assert.assertEquals(DriverProvider.INSTANCE.getDriver().getCurrentUrl(), EXPECTED_URL_CHINA);
 
         /**
          Case 7: Main page: Global Nav logic (CHINA - separate site is open)
@@ -199,34 +182,30 @@ public class YellowTailTest {
          */
 
     }
-
-    @Test(description = "Case 9: Cocktails: Select one wine")
-    public void verifyWinesDisplayed() throws InterruptedException {
-        WelcomePage welcomePage = new WelcomePage(driver);
+    @Description("Case 9: Cocktails: Select one wine")
+    @Test
+    public void verifyWinesDisplayed() {
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         mainPage.clickCocktailsButton();
         CocktailsPage cocktails = mainPage.clickCocktailsButton();
         cocktails.selectCocktails(RED_WINE);
-
-        List<WebElement> recipes = driver.findElements(By.xpath("//div[@class='tile recipe-tile']"));
+        List<WebElement> recipes = cocktails.getRecipes();
         Assert.assertEquals(recipes.size(), 9);
     }
 
-
-    @Test(description = "Case 11: Cocktails: Select several wines")
+    @Description("Case 11: Cocktails: Select several wines")
+    @Test
     public void verifySelectSeveralWines() throws InterruptedException {
-        WelcomePage welcomePage = new WelcomePage(driver);
+        WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
-        driver.findElement(By.xpath("//a[contains(text(),'Cocktails')]")).click();
-        driver.findElement(By.xpath("//a[@class='selected']")).click();
-        driver.findElement(By.xpath("//a[@data-value='red']")).click();
-        driver.findElement(By.xpath("//a[@data-value='bubbles']")).click();
-
-        List<WebElement> recipes = driver.findElements(By.xpath("//div[@class='tile recipe-tile']"));
+        CocktailsPage cocktails = mainPage.clickCocktailsButton();
+        cocktails.selectCocktails(RED_WINE, SPARKLINE_WINE);
+        List<WebElement> recipes = cocktails.getRecipes();
         Assert.assertEquals(recipes.size(), 20);
     }
 
