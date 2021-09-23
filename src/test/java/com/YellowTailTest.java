@@ -198,7 +198,7 @@ public class YellowTailTest extends TestNgRunner {
 
     @Description("Case 11: Cocktails: Select several wines")
     @Test
-    public void verifySelectSeveralWines() throws InterruptedException {
+    public void verifySelectSeveralWines() {
         WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
@@ -207,6 +207,18 @@ public class YellowTailTest extends TestNgRunner {
         cocktails.selectCocktails(RED_WINE, SPARKLINE_WINE);
         List<WebElement> recipes = cocktails.getRecipes();
         Assert.assertEquals(recipes.size(), 20);
+    }
+    @Description("Test just to fall ;) ")
+    @Test
+    public void ExtraTestToFall()  {
+        WelcomePage welcomePage = new WelcomePage();
+        welcomePage.openBrowser();
+        MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
+        mainPage.elementOnMainPageWait();
+        CocktailsPage cocktails = mainPage.clickCocktailsButton();
+        cocktails.selectCocktails(RED_WINE, SPARKLINE_WINE);
+        List<WebElement> recipes = cocktails.getRecipes();
+        Assert.assertEquals(recipes.size(), 0);
     }
 
 

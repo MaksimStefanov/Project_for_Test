@@ -1,6 +1,5 @@
 package com;
 
-import org.openqa.selenium.By;
 
 public class Constants {
     public static final String WEB_DRIVER_PROPERTY = "webdriver.chrome.driver";
