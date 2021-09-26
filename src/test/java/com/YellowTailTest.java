@@ -1,5 +1,8 @@
 package com;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.pages.CocktailsPage;
 import com.pages.WelcomePage;
 import com.pages.WhereToBuyPage;
@@ -8,172 +11,161 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import static com.Constants.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.url;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.util.List;
 
-public class YellowTailTest extends TestNgRunner {
+public class YellowTailTest extends SelenideRunner {
 
     @Description("Case 1: Welcome page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsWelcomePageLegalAge() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
-        welcomePage.legalAgeWait();
-        Assert.assertTrue(welcomePage.legalAge().isDisplayed());
+
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
+        $(welcomePage.legalAge()).shouldBe(Condition.visible);
     }
+
     @Description("Case 1: Welcome page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsWelcomePageCheckBoxBeforeLegalAge() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
-        welcomePage.legalAgeWait();
-        Assert.assertTrue(welcomePage.checkBox().isDisplayed());
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
+        $(welcomePage.checkBox()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 1: Welcome page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsWelcomePageSelectDropDown() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
-        welcomePage.legalAgeWait();
-        Assert.assertTrue(welcomePage.dropDown().isDisplayed());
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
+        $(welcomePage.dropDown()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 1: Welcome page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsWelcomePageWelcomeButton() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
-        welcomePage.legalAgeWait();
-        Assert.assertTrue(welcomePage.welcomeButton().isDisplayed());
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
+        $(welcomePage.welcomeButton()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 1: Welcome page: all required elements are displayed")
     @Test
     public void verifyInactiveItemsWelcomePageWelcomeButton() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
-        welcomePage.legalAgeWait();
-        Assert.assertFalse(welcomePage.welcomeButton().isEnabled());
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
+        $(welcomePage.welcomeButton()).shouldBe(Condition.disabled);
+
     }
 
     @Description("Case 2: Welcome page: navigate to main page as European customer")
     @Test
     public void verifyNavigateToMainPage() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
-        Assert.assertTrue(mainPage.elementOnMainPage().isDisplayed());
+        $(mainPage.elementOnMainPage()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 3: Main page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsMainPageMenu() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
-        Assert.assertTrue(mainPage.menuButton().isDisplayed());
+        $(mainPage.menuButton()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 3: Main page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsMainPageWelcomeToWorld() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
-        Assert.assertTrue(mainPage.welcomeToTheWorld().isDisplayed());
+        $(mainPage.welcomeToTheWorld()).shouldBe(Condition.visible);
     }
+
     @Description("Case 3: Main page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsMainPageWeArePassionate() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
-        Assert.assertTrue(mainPage.weArePassionate().isDisplayed());
+        $(mainPage.weArePassionate()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 3: Main page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsMainPageFindYourWine() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
-        Assert.assertTrue(mainPage.findYourWine().isDisplayed());
+        $(mainPage.findYourWine()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 3: Main page: all required elements are displayed")
     @Test
     public void verifyDisplayedItemsMainPageFooter() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
-        Assert.assertTrue(mainPage.getFooter().isDisplayed());
+        $(mainPage.getFooter()).shouldBe(Condition.visible);
+
     }
+
     @Description("Case 4: Main page: Menu button logic (open header)")
     @Test
     public void menuButtonLogicOpen() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.menuButtonWait();
         mainPage.menuButton().click();
-        mainPage.yellowTailLogoWait();
-        Assert.assertTrue(mainPage.yellowTailLogo().isDisplayed());
-
+        $(mainPage.yellowTailLogo()).shouldBe(Condition.visible);
     }
+
     @Description("Case 5:  Main page: Menu button logic (close header)")
     @Test
     public void menuButtonLogicClose() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.menuButtonWait();
         mainPage.menuButton().click();
-        mainPage.yellowTailLogoWait();
         mainPage.yellowTailLogo().click();
-        mainPage.menuButtonWait();
-        Assert.assertTrue(mainPage.menuButton().isDisplayed());
-
+        $(mainPage.menuButton()).shouldBe(Condition.visible);
     }
+
     @Description("Case 8: Where to buy: enter valid postal code")
     @Test
     public void whereToBuyPage() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
         WhereToBuyPage whereToBuyPage = mainPage.clickWhereToBuy();
         whereToBuyPage.findCountry(SYDNEY);
-        Assert.assertTrue(whereToBuyPage.stockists().isDisplayed());
+        $(whereToBuyPage.stockists()).shouldBe(Condition.visible);
     }
+
     @Description("Case 10: Cocktails: Navigate to Cocktail recipe page")
     @Test
     public void verifyNavigateToCocktailRecipePage() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
+
         CocktailsPage cocktails = mainPage.clickCocktailsButton();
         WebElement element = cocktails.getRaspberry();
-        ((JavascriptExecutor) DriverProvider.INSTANCE.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+//        ((JavascriptExecutor) DriverProvider.INSTANCE.getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
         cocktails.fullRecipes().click();
-        Assert.assertTrue(cocktails.ingridients().isDisplayed());
+        $(cocktails.ingridients()).shouldBe(Condition.visible);
     }
+
     @Description("Case 6: Main page: Global Nav logic")
     @Test
     public void verifyGlobalNavLogic() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
-        mainPage.menuButtonWait();
         mainPage.menuButton().click();
-        mainPage.yellowTailLogoWait();
         mainPage.selectCountry().click();
         mainPage.selectCountryFromDropDown(CHINA);
-        Assert.assertEquals(DriverProvider.INSTANCE.getDriver().getCurrentUrl(), EXPECTED_URL_CHINA);
+        Assert.assertEquals(url(), EXPECTED_URL_CHINA);
+
 
         /**
          Case 7: Main page: Global Nav logic (CHINA - separate site is open)
@@ -182,42 +174,38 @@ public class YellowTailTest extends TestNgRunner {
          */
 
     }
+
     @Description("Case 9: Cocktails: Select one wine")
     @Test
     public void verifyWinesDisplayed() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
         mainPage.clickCocktailsButton();
         CocktailsPage cocktails = mainPage.clickCocktailsButton();
         cocktails.selectCocktails(RED_WINE);
-        List<WebElement> recipes = cocktails.getRecipes();
+        ElementsCollection recipes = cocktails.getRecipes();
         Assert.assertEquals(recipes.size(), 9);
     }
 
     @Description("Case 11: Cocktails: Select several wines")
     @Test
     public void verifySelectSeveralWines() {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
         CocktailsPage cocktails = mainPage.clickCocktailsButton();
         cocktails.selectCocktails(RED_WINE, SPARKLINE_WINE);
-        List<WebElement> recipes = cocktails.getRecipes();
+        ElementsCollection recipes = cocktails.getRecipes();
         Assert.assertEquals(recipes.size(), 20);
     }
+
     @Description("Test just to fall ;) ")
     @Test
-    public void ExtraTestToFall()  {
-        WelcomePage welcomePage = new WelcomePage();
-        welcomePage.openBrowser();
+    public void ExtraTestToFall() {
+        WelcomePage welcomePage = open(BASE_URL, WelcomePage.class);
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
-        mainPage.elementOnMainPageWait();
         CocktailsPage cocktails = mainPage.clickCocktailsButton();
         cocktails.selectCocktails(RED_WINE, SPARKLINE_WINE);
-        List<WebElement> recipes = cocktails.getRecipes();
+        ElementsCollection recipes = cocktails.getRecipes();
         Assert.assertEquals(recipes.size(), 0);
     }
 

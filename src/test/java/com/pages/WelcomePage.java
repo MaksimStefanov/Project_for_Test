@@ -1,60 +1,44 @@
 package com.pages;
 
-import com.DriverProvider;
+
 import com.MainPage;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.Constants.*;
 import static com.Constants.LEGAL_AGE_X;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 
-public class WelcomePage extends AbstractPage {
-    WebDriver driver;
+public class WelcomePage  {
 
     @FindBy(xpath = CONFIRMATION_CHECKBOX_X)
-    private WebElement confirmationCheckbox;
+    private SelenideElement confirmationCheckbox;
     @FindBy(xpath = SELECT_OPTIONS_X)
-    private WebElement selectOptions;
+    private SelenideElement selectOptions;
     @FindBy(xpath = WELCOME_BUTTON_X)
-    private WebElement welcomeButton;
+    private SelenideElement welcomeButton;
     @FindBy(xpath = LEGAL_AGE_X)
-    private WebElement legalAge;
+    private SelenideElement legalAge;
     @FindBy(xpath = CHECKBOX_X)
-    private WebElement checkbox;
+    private SelenideElement checkbox;
 
 
-    public WelcomePage() {
-        super();
-        this.driver = DriverProvider.INSTANCE.getDriver();
-
-    }
-
-    public void openBrowser() {
-        driver.get(BASE_URL);
-        driver.manage().window().maximize();
-
-
-    }
 
     public MainPage logInToMainPage(String country) {
         confirmationCheckbox.click();
         Select dropDown = new Select(selectOptions);
         dropDown.selectByVisibleText(country);
         welcomeButton.click();
-        return new MainPage();
+        return page (MainPage.class);
 
     }
 
-    @Step
-    public void legalAgeWait() {
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(legalAge));
-    }
+
 
     @Step
     public WebElement legalAge() {
@@ -63,7 +47,7 @@ public class WelcomePage extends AbstractPage {
 
     @Step
     public WebElement checkBox() {
-        return driver.findElement(By.xpath(CHECKBOX_X));
+        return $(By.xpath(CHECKBOX_X));
     }
     @Step
     public WebElement dropDown() {
@@ -73,8 +57,5 @@ public class WelcomePage extends AbstractPage {
     public WebElement welcomeButton() {
         return welcomeButton;
     }
-    @Step
-    public void quit() {
-        driver.quit();
-    }
+
 }

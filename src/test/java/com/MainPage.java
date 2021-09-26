@@ -1,84 +1,62 @@
 package com;
 
+import com.codeborne.selenide.SelenideElement;
 import com.pages.CocktailsPage;
 import com.pages.WhereToBuyPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
 
 import static com.Constants.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
-    WebDriver driver;
 
     @FindBy(xpath = MAIN_PAGE_ELEMENT_X)
-    private WebElement mainPageElement;
+    private SelenideElement mainPageElement;
     @FindBy(xpath = YELLOW_TAIL_LOGO_X)
-    private WebElement yellowTailLogo;
+    private SelenideElement yellowTailLogo;
     @FindBy(xpath = MAIN_PAGE_MENU_X)
-    private WebElement mainPageMenu;
+    private SelenideElement mainPageMenu;
     @FindBy(xpath = SELECT_COUNTRY_X)
-    private WebElement selectCountry;////
+    private SelenideElement selectCountry;
     @FindBy(xpath = COUNTRY_CHINA)
-    private WebElement china;
+    private SelenideElement china;
     @FindBy(xpath = COUNTRY_AUSTRALIA)
-    private WebElement australia;
+    private SelenideElement australia;
     @FindBy(xpath = COUNTRY_USA)
-    private WebElement usa;
+    private SelenideElement usa;
     @FindBy(xpath = COCKTAILS_BUTTON_X)
-    private WebElement cocktailsButton;
+    private SelenideElement cocktailsButton;
     @FindBy(xpath = WE_ARE_PASSIONATE_X)
-    private WebElement weArePassionate;
+    private SelenideElement weArePassionate;
     @FindBy(xpath = FIND_YOUR_WINE_X)
-    private WebElement findYourWine;
+    private SelenideElement findYourWine;
     @FindBy(id = FOOTER_ID)
-    private WebElement getFooter;
+    private SelenideElement getFooter;
     @FindBy(xpath = WHERE_TO_BUY)
-    private WebElement whereToBuy;
+    private SelenideElement whereToBuy;
 
 
-    public MainPage()  {
-        this.driver = DriverProvider.INSTANCE.getDriver();
-        PageFactory.initElements(driver, this);
-    }
     @Step
-    public void elementOnMainPageWait() {
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(mainPageElement));
-    }
-    @Step
-    public void yellowTailLogoWait() {
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(yellowTailLogo));
-    }
-    @Step
-    public void menuButtonWait() {
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(mainPageMenu));
-    }
-    @Step
-    public WebElement selectCountry() {
+    public SelenideElement selectCountry() {
         return selectCountry;
     }
     @Step
-    public WebElement elementOnMainPage() {
+    public SelenideElement elementOnMainPage() {
         return mainPageElement;
     }
     @Step
-    public WebElement menuButton() {
+    public SelenideElement menuButton() {
         return mainPageMenu;
     }
     @Step
-    public WebElement welcomeToTheWorld() {
-        return driver.findElement(By.xpath(WELCOME_TO_THE_WORLD));
+    public SelenideElement welcomeToTheWorld() {
+        return $(By.xpath(WELCOME_TO_THE_WORLD));
     }
     @Step
-    public Country selectCountryFromDropDown(String country) {
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(china));
+    public void selectCountryFromDropDown(String country) {
         if (country.equals(CHINA)) {
             china.click();
         } else if (country.equals(USA)) {
@@ -86,33 +64,33 @@ public class MainPage {
         } else if (country.equals(AUSTRALIA)) {
             australia.click();
         }
-        return new Country(driver);
+
     }
     @Step
     public CocktailsPage clickCocktailsButton() {
         cocktailsButton.click();
-        return new CocktailsPage();
+        return page(CocktailsPage.class);
     }
     @Step
     public WhereToBuyPage clickWhereToBuy() {
         whereToBuy.click();
-        return new WhereToBuyPage(driver);
+        return page(WhereToBuyPage.class);
     }
 
     @Step
-    public WebElement weArePassionate() {
+    public SelenideElement weArePassionate() {
         return weArePassionate;
     }
     @Step
-    public WebElement findYourWine() {
+    public SelenideElement findYourWine() {
         return findYourWine;
     }
     @Step
-    public WebElement yellowTailLogo() {
+    public SelenideElement yellowTailLogo() {
         return yellowTailLogo;
     }
     @Step
-    public WebElement getFooter() {
+    public SelenideElement getFooter() {
         return getFooter;
     }
 }

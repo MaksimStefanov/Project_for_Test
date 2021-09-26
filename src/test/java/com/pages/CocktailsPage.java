@@ -1,49 +1,38 @@
 package com.pages;
 
-import com.DriverProvider;
-import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+import org.openqa.selenium.support.FindBy;
 
 import static com.Constants.*;
 
-public class CocktailsPage extends AbstractPage {
+public class CocktailsPage {
 
-    WebDriver driver;
+
     @FindBy(xpath = SELECT_COCTAILS_INIT_X)
-    private WebElement selectInitial;
+    private SelenideElement selectInitial;
     @FindBy(xpath = RED_WINE)
-    private WebElement red;
+    private SelenideElement red;
     @FindBy(xpath = ROSE_WINE)
-    private WebElement rose;
+    private SelenideElement rose;
     @FindBy(xpath = WHITE_WINE)
-    private WebElement white;
+    private SelenideElement white;
     @FindBy(xpath = SPARKLINE_WINE)
-    private WebElement sparkline;
+    private SelenideElement sparkline;
     @FindBy(xpath = RECIPES_X)
-    private List<WebElement> recipes;
+    private ElementsCollection recipes;
     @FindBy(xpath = RASPBERRY_COCKTAIL_X)
-    private WebElement raspberry;
+    private SelenideElement raspberry;
     @FindBy(xpath = FULL_RECIPE_X)
-    private WebElement fullRecipes;
+    private SelenideElement fullRecipes;
     @FindBy(xpath = INGREDIENTS_X)
-    private WebElement ingridients;
+    private SelenideElement ingridients;
 
-
-    public CocktailsPage() {
-        super();
-        this.driver = DriverProvider.INSTANCE.getDriver();
-    }
 
     public void selectCocktails(String wine) {
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(selectInitial));
         selectInitial.click();
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(red));
         if (wine.equals(RED_WINE)) {
             red.click();
         } else if (wine.equals(ROSE_WINE)) {
@@ -59,37 +48,32 @@ public class CocktailsPage extends AbstractPage {
     }
     @Step
     public void selectCocktails(String wine, String wine2)  {
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(selectInitial));
         selectInitial.click();
-        (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(red));
         if (wine.equals(RED_WINE) || wine2.equals(RED_WINE)) {
             red.click();
         }  if (wine.equals(ROSE_WINE) || wine2.equals(ROSE_WINE)) {
-            (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(rose));
             rose.click();
         }  if (wine.equals(WHITE_WINE) || wine2.equals(WHITE_WINE)) {
-            (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(white));
             white.click();
         }  if (wine.equals(SPARKLINE_WINE) || wine2.equals(SPARKLINE_WINE)) {
-            (new WebDriverWait(driver, 4)).until(ExpectedConditions.visibilityOf(sparkline));
             sparkline.click();
         }
         selectInitial.click();
     }
     @Step
-    public List<WebElement> getRecipes() {
+    public ElementsCollection getRecipes() {
         return recipes;
     }
     @Step
-    public WebElement getRaspberry() {
+    public SelenideElement getRaspberry() {
         return raspberry;
     }
     @Step
-    public WebElement fullRecipes() {
+    public SelenideElement fullRecipes() {
         return fullRecipes;
     }
     @Step
-    public WebElement ingridients() {
+    public SelenideElement ingridients() {
         return ingridients;
     }
 }
