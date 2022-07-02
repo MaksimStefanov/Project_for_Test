@@ -184,12 +184,13 @@ public class YellowTailTest extends TestNgRunner {
     }
     @Description("Case 9: Cocktails: Select one wine")
     @Test
-    public void verifyWinesDisplayed() {
+    public void verifyWinesDisplayed() throws InterruptedException {
         WelcomePage welcomePage = new WelcomePage();
         welcomePage.openBrowser();
         MainPage mainPage = welcomePage.logInToMainPage(EUROPE);
         mainPage.elementOnMainPageWait();
         mainPage.clickCocktailsButton();
+        Thread.sleep(1000);
         CocktailsPage cocktails = mainPage.clickCocktailsButton();
         cocktails.selectCocktails(RED_WINE);
         List<WebElement> recipes = cocktails.getRecipes();
